@@ -99,7 +99,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
+          username: gaddala0211
           password: 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
       
       - name: Extract metadata for Docker
