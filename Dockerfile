@@ -10,9 +10,16 @@ RUN npm run build
 #FROM nginx:alpine
 FROM nginx:1.25-alpine3.19
 # Upgrade vulnerable system libraries
-RUN apk update && \
-    apk add --no-cache libcrypto3 libssl3 curl libcurl libexpat libxml2 libxslt xz-libs && \
-    rm -rf /var/cache/apk/*
+RUN apk update && apk add --no-cache \
+    curl=8.7.1-r0 \
+    libcurl=8.7.1-r0 \
+    libexpat=2.6.3-r0 \
+    libxml2=2.11.8-r3 \
+    libxslt=1.1.39-r1 \
+    xz-libs=5.4.5-r1 \
+    libcrypto3=3.1.7-r0 \
+    libssl3=3.1.7-r0 \
+    && rm -rf /var/cache/apk/*
 
 COPY --from=build /app/dist /usr/share/nginx/html
 # Add nginx configuration if needed
