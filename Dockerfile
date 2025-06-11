@@ -8,9 +8,10 @@ RUN npm run build
 
 # Production stage
 #FROM nginx:alpine
-FROM nginx:1.25-alpine3.20
+FROM nginx:1.25.5-alpine3.19
+
 # Upgrade vulnerable system libraries
-RUN apk update && apk add --no-cache \
+RUN apk update && apk upgrade && apk add --no-cache \
     curl \
     libcurl \
     libexpat \
