@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: tic-tac-toe
-        image: ghcr.io/gaddala0211/DEVSECOPS:sha-815205b94758f802a373e1149f870788c19324be
+        image: ghcr.io/gaddala0211/DEVSECOPS:sha-369c2ef91e155d19689fc0dc441e32e7d912a3d2
         # Image will be automatically updated by CI/CD pipeline
         imagePullPolicy: Always
         ports:
