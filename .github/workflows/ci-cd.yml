@@ -172,6 +172,7 @@ jobs:
           REGISTRY: ghcr.io
         run: |
           # Define the new image with tag
+          IMAGE_NAME="devsecops"
           NEW_IMAGE="${REGISTRY}/${GITHUB_REPOSITORY}:${IMAGE_TAG}"
           
           # Update the deployment file directly
