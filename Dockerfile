@@ -10,6 +10,8 @@ RUN npm config set registry https://registry.npmmirror.com
 RUN npm install -g npm@11.4.2
 COPY package*.json ./
 RUN npm ci || (sleep 10 && npm ci) || (sleep 20 && npm ci)
+COPY . .
+RUN npm run build
 
 # Production stage
 #FROM nginx:alpine
