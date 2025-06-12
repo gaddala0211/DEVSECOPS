@@ -166,26 +166,21 @@ jobs:
           git config user.email "actions@github.com"
       
       - name: Update Kubernetes deployment file
-        env:
-          IMAGE_TAG: sha-${{ github.sha }}
-          #GITHUB_REPOSITORY: ${{ github.repository }}
-          REGISTRY: ghcr.io
         run: |
-          # Define the new image with tag
-          IMAGE_NAME="devsecops"
-          NEW_IMAGE="${REGISTRY}/gaddala0211/${IMAGE_NAME}:${IMAGE_TAG}"
+          IMAGE_TAG="sha-${{ github.sha }}"
+          REGISTRY="ghcr.io"
+          REPO_NAME=$(echo "${{ github.repository }}" | awk -F/ '{print $2}' | tr '[:upper:]' '[:lower:]')
+          NEW_IMAGE="${REGISTRY}/gaddala0211/${REPO_NAME}:${IMAGE_TAG}"
 
-           echo "Using image: ${NEW_IMAGE}"
-          
-          # Update the deployment file directly
+          echo "Using image: ${NEW_IMAGE}"
+
           sed -i "s|[[:space:]]*image: .*|        image: ${NEW_IMAGE}|g" kubernetes/deployment.yaml
-          
-          # Verify the change
-          echo "Updated deployment to use image: ${NEW_IMAGE}"
+
+          echo "Updated deployment.yaml:"
           grep -A 1 "image:" kubernetes/deployment.yaml
-      
+
       - name: Commit and push changes
         run: |
           git add kubernetes/deployment.yaml
-          git commit -m "Update Kubernetes deployment with new image tag: ${{ needs.docker.outputs.image_tag }} " || echo "No changes to commit"
+          git commit -m "Update Kubernetes deployment with new image tag: sha-${{ github.sha }}" || echo "No changes to commit"
           git push
