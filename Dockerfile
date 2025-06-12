@@ -1,10 +1,15 @@
 # Build stage
 FROM node:20-alpine AS build
 WORKDIR /app
+#COPY package*.json ./
+#RUN npm ci
+#COPY . .
+#RUN npm run build
+
+RUN npm config set registry https://registry.npmmirror.com
+RUN npm install -g npm@11.4.2
 COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
+RUN npm ci || (sleep 10 && npm ci) || (sleep 20 && npm ci)
 
 # Production stage
 #FROM nginx:alpine
