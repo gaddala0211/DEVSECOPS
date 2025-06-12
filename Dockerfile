@@ -5,8 +5,8 @@ FROM node:20-alpine AS build
 RUN apk add --no-cache python3 make g++ curl
 
 # Set npm registry to avoid downtime and upgrade npm
-RUN npm config set registry https://registry.npmmirror.com \
-    && npm install -g npm@11.4.2
+RUN npm config set registry https://registry.npmmirror.com
+RUN npm install -g npm@11.4.2 || npm install -g npm@latest
 
 WORKDIR /app
 
