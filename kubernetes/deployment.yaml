@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: tic-tac-toe
-        image: /gaddala0211/tic-tac-toe:sha-25ec472cbbf25b214e5033d87b0cbca2f6e0248b
+        image: /gaddala0211/tic-tac-toe:sha-babf3f76d038e5ee0648b2a960e81a09fda7e830
         # Image will be automatically updated by CI/CD pipeline
         imagePullPolicy: Always
         ports:
