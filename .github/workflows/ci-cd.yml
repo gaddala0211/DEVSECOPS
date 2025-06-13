@@ -79,7 +79,7 @@ jobs:
     needs: [build]
     env:
       REGISTRY: ghcr.io
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: tic-tac-toe
     outputs:
       image_tag: ${{ steps.set_output.outputs.image_tag }}
     steps:
@@ -106,7 +106,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/gaddala0211/${{ env.IMAGE_NAME }}
           tags: |
             type=sha,format=long
             type=ref,event=branch
@@ -168,9 +168,11 @@ jobs:
       - name: Update Kubernetes deployment file
         run: |
           IMAGE_TAG="sha-${{ github.sha }}"
-          REGISTRY="ghcr.io"
-          REPO_NAME=$(echo "${{ github.repository }}" | awk -F/ '{print $2}' | tr '[:upper:]' '[:lower:]')
-          NEW_IMAGE="${REGISTRY}/gaddala0211/${REPO_NAME}:${IMAGE_TAG}"
+          #REGISTRY="ghcr.io"
+          IMAGE_NAME="tic-tac-toe"
+          #REPO_NAME=$(echo "${{ github.repository }}" | awk -F/ '{print $2}' | tr '[:upper:]' '[:lower:]')
+          NEW_IMAGE="${REGISTRY}/gaddala0211/${IMAGE_NAME}:${IMAGE_TAG}"
+
 
           echo "Using image: ${NEW_IMAGE}"
 
